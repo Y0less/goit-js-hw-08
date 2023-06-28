@@ -1,4 +1,4 @@
-import { save, load } from './storage';
+import { save, load, remove } from './storage';
 const throttle = require('lodash.throttle');
 const feedbackForm = document.querySelector('.feedback-form');
 const KEY = 'feedback-form-state';
@@ -27,7 +27,8 @@ function handleSubmit(evt) {
   evt.preventDefault();
   console.log(load(KEY));
   evt.target.reset();
-  save(KEY, { email: '', message: '' });
+  remove(KEY);
+  email = message = '';
 }
 
 /**
