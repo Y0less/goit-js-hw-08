@@ -1,31 +1,44 @@
-// import { save, load } from './storage';
-var throttle = require('lodash.throttle');
+import { save, load } from './storage';
+const throttle = require('lodash.throttle');
 const feedbackForm = document.querySelector('.feedback-form');
 const KEY = 'feedback-form-state';
+let email = '';
+let message = '';
 
-// onLoad();
+onLoad();
 
 feedbackForm.addEventListener('input', throttle(handleInput, 500));
-// feedbackForm.addEventListener('submit', handleSubmit);
+feedbackForm.addEventListener('submit', handleSubmit);
 
+/**
+ * forms an object from typed values and saves in local storage
+ */
 function handleInput(evt) {
-  //   save(KEY, {
-  //     email: evt.currentTarget.email.value,
-  //     message: evt.currentTarget.message.value,
-  //   });
-  console.log(evt.currentTarget);
-  //   console.log(evt.currentTarget.message.value);
+  if (evt.target.name === 'email') {
+    email = evt.target.value;
+  }
+  if (evt.target.name === 'message') {
+    message = evt.target.value;
+  }
+  save(KEY, { email, message });
 }
 
-// function handleSubmit(evt) {
-//   evt.preventDefault;
-// }
+function handleSubmit(evt) {
+  evt.preventDefault();
+  console.log(load(KEY));
+  evt.target.reset();
+  save(KEY, { email: '', message: '' });
+}
 
-// function onLoad() {
-//   savedInput = load(KEY);
-//   if (!savedInput) {
-//     return;
-//   }
-//   feedbackForm.elements.email.value = savedInput.email;
-//   feedbackForm.elements.message.value = savedInput.message;
-// }
+/**
+ * restores form values from local storage
+ * if storege has no values - aborts
+ */
+function onLoad() {
+  savedInput = load(KEY);
+  if (!savedInput) {
+    return;
+  }
+  email = feedbackForm.elements.email.value = savedInput.email;
+  message = feedbackForm.elements.message.value = savedInput.message;
+}
