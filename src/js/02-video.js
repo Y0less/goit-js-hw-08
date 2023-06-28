@@ -10,7 +10,7 @@ const throttle = require('lodash.throttle');
 vimeoPlayer
   .setCurrentTime(readStoredTime())
   .then(function (seconds) {
-    console.log('stored player time :>> ', seconds); //comment
+    // console.log('stored player time :>> ', seconds);
   })
   .catch(function (error) {
     switch (error.name) {
@@ -34,6 +34,6 @@ vimeoPlayer.on('timeupdate', throttle(onPlay, 1000));
  * storing VimeoPlayer current playing time to local storage
  */
 function onPlay(data) {
-  console.log('player time :>> ', data.seconds); //comment
+  // console.log('player time :>> ', data.seconds);
   localStorage.setItem('videoplayer-current-time', data.seconds);
 }
