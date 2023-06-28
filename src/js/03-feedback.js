@@ -25,7 +25,9 @@ function handleInput(evt) {
 
 function handleSubmit(evt) {
   evt.preventDefault();
-  console.log(load(KEY));
+  if (load(KEY)) {
+    console.log(load(KEY));
+  }
   evt.target.reset();
   remove(KEY);
   email = message = '';
@@ -36,7 +38,7 @@ function handleSubmit(evt) {
  * if storege has no values - aborts
  */
 function onLoad() {
-  savedInput = load(KEY);
+  const savedInput = load(KEY);
   if (!savedInput) {
     return;
   }
