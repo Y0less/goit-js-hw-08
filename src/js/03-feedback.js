@@ -35,7 +35,7 @@ function handleSubmit(evt) {
 
 /**
  * restores form values from local storage
- * if storege has no values - aborts
+ * if storege has no values - aborts function
  */
 function onLoad() {
   const savedInput = load(KEY);
